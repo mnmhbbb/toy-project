@@ -15,7 +15,7 @@ const userSchema = mongoose.Schema({
   },
   password: {
     type: String,
-    minglength: 6,
+    minlength: 6,
   },
   termAll: {
     tyle: Boolean,
