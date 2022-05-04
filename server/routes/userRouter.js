@@ -7,9 +7,9 @@ import bcrypt from 'bcryptjs';
 
 userRouter.post('/register', async (req, res) => {
   try {
-    if (req.body.hashedPassword.length < 6) throw new Error('비밀번호를 6자 이상 입력 해주세요');
+    if (req.body.password.length < 6) throw new Error('비밀번호를 6자 이상 입력 해주세요');
     if (req.body.username.length < 3) throw new Error('username은 3자 이상 입력해 주세요.');
-    const hashedPassword = await bcrypt.hash(req.body.hashedPassword, 10);
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = await new User({
       name: req.body.name,
       username: req.body.username,
@@ -30,7 +30,7 @@ userRouter.post('/register', async (req, res) => {
 userRouter.patch('/login', async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username });
-    const isValid = await bcrypt.compare(req.body.hashedPassword, user.hashedPassword);
+    const isValid = await bcrypt.compare(req.body.password, user.hashedPassword);
     if (!isValid) throw new Error('입력하신 정보가 올바르지 않습니다.');
     user.sessions.push({ createdAt: new Date() });
     const session = user.sessions[user.sessions.length - 1]; // 마지막 요소
