@@ -1,14 +1,21 @@
-import UploadForm from './components/UploadForm';
 import { ToastContainer } from 'react-toastify';
+import { Routes, Route } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import ImageList from './components/ImageList';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import MainPage from './pages/MainPage';
+import Toolbar from './components/Toolbar';
 
 function App() {
   return (
     <>
       <ToastContainer />
-      <UploadForm />
-      <ImageList />
+      <Toolbar />
+      <Routes>
+        <Route path='/auth/register' element={<RegisterPage />} />
+        <Route path='/auth/login' element={<LoginPage />} />
+        <Route path='/' element={<MainPage />} />
+      </Routes>
     </>
   );
 }
